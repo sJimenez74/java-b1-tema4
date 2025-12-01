@@ -23,34 +23,9 @@
  * Lifting box 1
  * Lifting box 2
  * Lifting box 3
- *
- * ENUNCIAT:
- *
- * Un treballador està apilant caixes en una prestatgeria, una sobre l'altra.
- * Cada caixa té un número del 1 al N, sent 1 la primera i N l’última.
- *
- * Es vol mostrar per la sortida estándar el procés d’apilar les caixes, una a una, en ordre ascendent.
- * Aquest procés s’ha d’implementar utilitzant recursivitat.
- *
- * OBJECTIU:
- * Implementar un mètode recursiu que mostri per la so:
- *   - "Lifting box 1"
- *   - "Lifting box 2"
- *   - ...
- *   - "Lifting box N"
- *
- * VARIABLES D’ENTRADA:
- * - int n: nombre total de caixes a aixecar.
- *
- * EXEMPLE:
- * Entrada: n = 3
- * Sortida esperada:
- * Lifting box 1
- * Lifting box 2
- * Lifting box 3
  */
 
-public class BoxLifter {
+public class BoxLifterStudent {
 
     /**
      * This method starts the lifting process.
@@ -66,6 +41,9 @@ public class BoxLifter {
     public static void liftBoxes(int n) {
         // TODO: Check if n is valid
         // TODO: Call your recursive method starting from 1
+        if (n > 0) {
+            liftBoxesRecursive(1, n);
+        }
     }
 
     /**
@@ -84,16 +62,19 @@ public class BoxLifter {
         // TODO: Base case → if current > total, stop
         // TODO: Print message "Lifting box X"
         // TODO: Recursive call with current + 1
+        if (current > total) {
+            return;
+        }
+        System.out.println("Lifting box " + current);
+        liftBoxesRecursive((current + 1), total);
     }
 
     // -------------------------------------------------------------
     // Manual test using IDE
     // -------------------------------------------------------------
-    /*
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
         liftBoxes(3);
-    }
-    */
+    }*/
 	// Torna a comentar aquest main quan vulguis executar els tests amb maven test
     // Vuelve a comentar este main cuando quieras ejecutar los tests con:
     // mvn test
