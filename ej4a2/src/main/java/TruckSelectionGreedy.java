@@ -35,59 +35,39 @@ import java.util.*;
  *
  * SALIDA:
  * Selected: [2, 1, 3]
- *
- * ENUNCIAT:
- *
- * Una empresa de transports té una flota de camions.
- * Cada camió disposa d’un dipòsit amb una capacitat específica de litres de combustible
- * i pot recórrer una quantitat concreta de quilòmetres amb aquest combustible.
- *
- * A causa d’una crisi de subministrament, només es disposa d’una quantitat limitada de combustible.
- * L’objectiu és seleccionar quins camions poden sortir a fer repartiments,
- * maximitzant la distància total recorreguda sense superar el combustible total disponible.
- *
- * El criteri és seleccionar primer els camions més eficients, és a dir,
- * aquells que recorren més quilòmetres per litre (eficiència = km / litres).
- *
- * VARIABLES D’ENTRADA:
- * - kilometers[] → quilòmetres que recorre cada camió amb el dipòsit ple
- * - tankLiters[] → capacitat del dipòsit de cada camió (litres)
- * - totalFuel    → litres de combustible disponibles
- *
- * TAULA DE CAMIONS:
- *
- * | Nº | Quilòmetres (km) | Combustible (L) |
- * |----|-------------------|-----------------|
- * | 1  | 400               | 100             |
- * | 2  | 600               | 100             |
- * | 3  | 1200              | 300             |
- * | 4  | 1000              | 500             |
- *
- * ENTRADA:
- * kilometers = {400, 600, 1200, 1000}
- * tankLiters = {100, 100, 300, 500}
- * totalFuel = 500
- *
- * SORTIDA ESPERADA:
- * Selected: [2, 1, 3]
  */
 public class TruckSelectionGreedy {
 
     public static List<Integer> selectTrucksGreedy(int[] kilometers, int[] tankLiters, int totalFuel) {
-            // TODO: Implement greedy algorithm prioritizing efficiency (km/l)
-        return new ArrayList<>();
+        int n = kilometers.length;
+
+        Integer[] indices = new Integer[n];
+        for (int i = 0; i < indices.length; i++) indices[i] = i;
+
+        Arrays.sort(indices, (a, b) ->  {
+           double efficiencyA = kilometers[a] / tankLiters[a];
+           double efficiencyB = kilometers[b] / tankLiters[b];
+           return Double.compare(efficiencyB, efficiencyA);
+        });
+
+        List<Integer> selectedValues = new ArrayList<>();
+        double capacidadRestante = totalFuel;
+        int i = 0;
+        while ((i < n) && (capacidadRestante >= tankLiters[indices[i]])) {
+            selectedValues.add(indices[i] + 1);
+
+            capacidadRestante -= tankLiters[indices[i]];
+            i++;
+        }
+        return selectedValues;
     }
 
-    /*
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
         int[] kilometers = {400, 600, 1200, 1000};
         int[] tankLiters = {100, 100, 300, 500};
         int totalFuel = 500;
 
         List<Integer> selected = selectTrucksGreedy(kilometers, tankLiters, totalFuel);
         System.out.println("Selected: " + selected);
-    }
-    */
-}
-
+    }*/
 }
